@@ -1,5 +1,6 @@
-package com.example.typlioserver.common;
+package com.example.typlioserver.common.advice;
 
+import com.example.typlioserver.common.constants.ErrorMessages;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

@@ -1,4 +1,4 @@
-package com.example.typlioserver.common;
+package com.example.typlioserver.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
