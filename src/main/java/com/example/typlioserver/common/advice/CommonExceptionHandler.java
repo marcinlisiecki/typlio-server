@@ -1,6 +1,8 @@
 package com.example.typlioserver.common.advice;
 
+import com.example.typlioserver.common.constants.ErrorMessages;
 import com.example.typlioserver.common.dto.ErrorMessageDto;
+import com.example.typlioserver.common.exception.InsufficientPermissionsException;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
 import com.example.typlioserver.user.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,14 @@ public class CommonExceptionHandler {
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessageDto handleResourceNotFoundException(Exception e) {
+        return new ErrorMessageDto(e.getMessage());
+    }
+
+    @ExceptionHandler({
+            InsufficientPermissionsException.class
+    })
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorMessageDto handleForbiddenException(Exception e) {
         return new ErrorMessageDto(e.getMessage());
     }
 }

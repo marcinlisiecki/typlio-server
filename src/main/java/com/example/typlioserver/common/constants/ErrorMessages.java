@@ -10,5 +10,7 @@ public class ErrorMessages {
 
     public static String SPEED_TEST_NOT_FOUND = "Nie znaleziono testu szybkości pisania";
 
+    public static String INSUFFICIENT_PERMISSIONS = "Brak uprawnień";
+
     public static String DEFAULT_ERROR = "Błąd serwera";
 }
