@@ -39,7 +39,7 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<SpeedTest> speedTests = new ArrayList<>();
 
     @CreationTimestamp
