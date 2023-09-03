@@ -30,7 +30,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest().denyAll());
+                .anyRequest().authenticated());
 
         http.headers(headers -> headers
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));

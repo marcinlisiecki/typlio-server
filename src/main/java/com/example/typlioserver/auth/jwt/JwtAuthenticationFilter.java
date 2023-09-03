@@ -1,5 +1,6 @@
 package com.example.typlioserver.auth.jwt;
 
+import com.example.typlioserver.user.exception.UserNotFoundException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -55,7 +56,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails;
+
+        try {
+            userDetails = userDetailsService.loadUserByUsername(username);
+        } catch (UserNotFoundException e) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (!jwtService.isTokenValid(accessToken, userDetails)) {
             filterChain.doFilter(request, response);

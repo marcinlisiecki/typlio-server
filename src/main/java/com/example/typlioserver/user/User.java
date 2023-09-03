@@ -1,5 +1,6 @@
 package com.example.typlioserver.user;
 
+import com.example.typlioserver.speedtest.SpeedTest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,9 +12,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "_user")
@@ -23,9 +24,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class User implements UserDetails {
 
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private UUID id;
+    private Long id;
 
     @Length(min = 3, max = 256)
     @NotBlank
@@ -37,6 +38,9 @@ public class User implements UserDetails {
     @Length(min = 8, max = 256)
     @NotBlank
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<SpeedTest> speedTests = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;

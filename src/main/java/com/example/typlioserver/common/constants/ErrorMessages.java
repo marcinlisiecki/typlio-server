@@ -8,5 +8,7 @@ public class ErrorMessages {
     public static String BAD_CREDENTIALS = "Niepoprawna nazwa użytkownika lub/i hasło";
     public static String USER_NOT_AUTHENTICATED = "Musisz być zalogowany, żeby wykonać tę akcję";
 
+    public static String SPEED_TEST_NOT_FOUND = "Nie znaleziono testu szybkości pisania";
+
     public static String DEFAULT_ERROR = "Błąd serwera";
 }
