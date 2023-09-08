@@ -39,6 +39,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/speed-tests/modes").permitAll()
                 .anyRequest().authenticated());
 
         http.headers(headers -> headers
