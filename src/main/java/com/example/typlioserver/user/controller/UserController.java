@@ -1,5 +1,6 @@
-package com.example.typlioserver.user;
+package com.example.typlioserver.user.controller;
 
+import com.example.typlioserver.user.service.UserService;
 import com.example.typlioserver.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
