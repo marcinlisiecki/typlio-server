@@ -5,6 +5,7 @@ import com.example.typlioserver.common.exception.InsufficientPermissionsExceptio
 import com.example.typlioserver.user.User;
 import com.example.typlioserver.user.UserMapper;
 import com.example.typlioserver.user.UserRepository;
+import com.example.typlioserver.user.dto.MeDto;
 import com.example.typlioserver.user.dto.UserDto;
 import com.example.typlioserver.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,19 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserDto getMe() {
+    public MeDto getMe() {
         UserDetails userDetails = AuthUtils.getLoggedInUser();
 
         return userRepository
                 .findByUsername(userDetails.getUsername())
-                .map(userMapper::map)
+                .map(userMapper::userToMeDto)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    public UserDto getUser(Long userId) {
+        return userRepository
+                .findById(userId)
+                .map(userMapper::userToUserDto)
                 .orElseThrow(UserNotFoundException::new);
     }
 
