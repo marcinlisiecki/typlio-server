@@ -42,6 +42,7 @@ public class SpeedTestMapper {
                 .time(speedTest.getTime())
                 .userId(speedTest.getUser().getId())
                 .wpmHistory(speedTest.getWpmHistory())
+                .createdAt(speedTest.getCreatedAt().toString())
                 .build();
     }
 }

@@ -22,4 +22,5 @@ public class SpeedTestDto {
     private Float accuracy;
     private Long userId;
     private List<Integer> wpmHistory;
+    private String createdAt;
 }
