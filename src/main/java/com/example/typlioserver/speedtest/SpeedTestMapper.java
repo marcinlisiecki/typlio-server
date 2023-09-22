@@ -26,6 +26,7 @@ public class SpeedTestMapper {
                 .cpm(newSpeedTestDto.getCpm())
                 .accuracy(newSpeedTestDto.getAccuracy())
                 .mistakes(newSpeedTestDto.getMistakes())
+                .wpmHistory(newSpeedTestDto.getWpmHistory())
                 .user(user)
                 .build();
     }
@@ -40,6 +41,7 @@ public class SpeedTestMapper {
                 .mistakes(speedTest.getMistakes())
                 .time(speedTest.getTime())
                 .userId(speedTest.getUser().getId())
+                .wpmHistory(speedTest.getWpmHistory())
                 .build();
     }
 }

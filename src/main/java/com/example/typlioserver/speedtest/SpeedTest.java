@@ -1,5 +1,6 @@
 package com.example.typlioserver.speedtest;
 
+import com.example.typlioserver.common.IntArrayToStringConverter;
 import com.example.typlioserver.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -38,6 +41,11 @@ public class SpeedTest {
 
     @NotNull
     private Float accuracy;
+
+    @NotNull
+    @Column
+    @Convert(converter = IntArrayToStringConverter.class)
+    private List<Integer> wpmHistory = new ArrayList<>();
 
     @ManyToOne
     private User user;

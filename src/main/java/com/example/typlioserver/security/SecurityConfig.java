@@ -31,7 +31,6 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
-    @Primary
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(Customizer.withDefaults());
@@ -56,7 +55,6 @@ public class SecurityConfig implements WebMvcConfigurer {
 
         return http.build();
     }
-
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
