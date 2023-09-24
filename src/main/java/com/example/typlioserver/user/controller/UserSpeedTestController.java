@@ -1,5 +1,7 @@
 package com.example.typlioserver.user.controller;
 
+import com.example.typlioserver.common.dto.PagedResponse;
+import com.example.typlioserver.speedtest.SpeedTestMode;
 import com.example.typlioserver.speedtest.dto.NewSpeedTestDto;
 import com.example.typlioserver.speedtest.dto.SpeedTestDto;
 import com.example.typlioserver.user.service.UserSpeedTestService;
@@ -21,8 +23,14 @@ public class UserSpeedTestController {
     }
 
     @GetMapping
-    public List<SpeedTestDto> findUserSpeedTests(@PathVariable Long userId) {
-        return userSpeedTestService.findUserSpeedTests(userId);
+    public PagedResponse<SpeedTestDto> findUserSpeedTests(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "-createdAt") String sortBy,
+            @RequestParam(required = false) List<SpeedTestMode> modes
+    ) {
+        return userSpeedTestService.findPagedUserSpeedTests(userId, page, size, sortBy, modes);
     }
 
     @GetMapping("/{speedTestId}")

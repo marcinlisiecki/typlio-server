@@ -1,12 +1,12 @@
 package com.example.typlioserver.speedtest;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SpeedTestRepository extends CrudRepository<SpeedTest, Long> {
+public interface SpeedTestRepository extends JpaRepository<SpeedTest, Long> {
 
-    @Query("SELECT s FROM SpeedTest s WHERE s.user.id = :userId")
-    List<SpeedTest> findAllByUserId(Long userId);
+    Page<SpeedTest> findByUserIdAndModeIn(Long userId, List<SpeedTestMode> modes, Pageable pageable);
 }
