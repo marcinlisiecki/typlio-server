@@ -2,12 +2,10 @@ package com.example.typlioserver.user.service;
 
 import com.example.typlioserver.auth.utils.AuthUtils;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
-import com.example.typlioserver.mailer.MailerService;
 import com.example.typlioserver.user.*;
 import com.example.typlioserver.user.dto.MeDto;
 import com.example.typlioserver.user.dto.UserDto;
 import com.example.typlioserver.user.exception.UserNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final MailerService mailerService;
     private final UserValidator userValidator;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -49,11 +46,5 @@ public class UserService {
         }
 
         userRepository.deleteById(userId);
-    }
-
-    @Transactional
-    public void resetPassword(String email) {
-        userValidator.checkIfEmailUserExists(email);
-        mailerService.sendSimpleMail(email, "Password reset", "Password reset content");
     }
 }
