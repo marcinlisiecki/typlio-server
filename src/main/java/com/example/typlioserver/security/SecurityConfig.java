@@ -2,6 +2,7 @@ package com.example.typlioserver.security;
 
 import com.example.typlioserver.auth.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,6 +30,9 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Value("${app.clientUrl}")
+    private String clientUrl;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
@@ -39,6 +43,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/speed-tests/modes").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/users/password").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/v1/users/password").permitAll()
                 .anyRequest().authenticated());
 
         http.headers(headers -> headers
@@ -62,6 +67,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addMapping("/**")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:4200");
+                .allowedOrigins(clientUrl);
     }
 }

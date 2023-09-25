@@ -13,4 +13,7 @@ public class ErrorMessages {
     public static String INSUFFICIENT_PERMISSIONS = "Brak uprawnień";
 
     public static String DEFAULT_ERROR = "Błąd serwera";
+
+    public static String PASSWORD_RESET_TOKEN_NOT_FOUND = "Invalid token";
+    public static String PASSWORD_RESET_TOKEN_EXPIRED = "Token expired";
 }

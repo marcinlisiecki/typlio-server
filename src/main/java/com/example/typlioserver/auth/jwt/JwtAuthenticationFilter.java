@@ -1,6 +1,6 @@
 package com.example.typlioserver.auth.jwt;
 
-import com.example.typlioserver.user.common.UserNotFoundException;
+import com.example.typlioserver.user.exception.UserNotFoundException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;

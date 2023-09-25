@@ -2,9 +2,9 @@ package com.example.typlioserver.user;
 
 import com.example.typlioserver.auth.utils.AuthUtils;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
-import com.example.typlioserver.user.common.UserNotFoundException;
-import com.example.typlioserver.user.common.UserUtils;
-import com.example.typlioserver.user.common.UserValidator;
+import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.dto.MeDto;
+import com.example.typlioserver.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

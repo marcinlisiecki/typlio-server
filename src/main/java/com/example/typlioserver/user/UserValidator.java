@@ -1,6 +1,6 @@
-package com.example.typlioserver.user.common;
+package com.example.typlioserver.user;
 
-import com.example.typlioserver.user.UserRepository;
+import com.example.typlioserver.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
