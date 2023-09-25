@@ -26,10 +26,10 @@ public class UserSpeedTestController {
     public PagedResponse<SpeedTestDto> findUserSpeedTests(
             @PathVariable Long userId,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "-createdAt") String sortBy,
-            @RequestParam(required = false) List<SpeedTestMode> modes
-    ) {
+            @RequestParam(required = false) List<SpeedTestMode> modes) {
+
         return userSpeedTestService.findPagedUserSpeedTests(userId, page, size, sortBy, modes);
     }
 

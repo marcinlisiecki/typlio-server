@@ -4,7 +4,6 @@ import com.example.typlioserver.auth.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -39,6 +38,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/speed-tests/modes").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/password").permitAll()
                 .anyRequest().authenticated());
 
         http.headers(headers -> headers

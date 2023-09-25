@@ -9,5 +9,4 @@ public class TyplioServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TyplioServerApplication.class, args);
 	}
-
 }

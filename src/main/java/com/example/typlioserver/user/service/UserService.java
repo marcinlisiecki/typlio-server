@@ -2,12 +2,12 @@ package com.example.typlioserver.user.service;
 
 import com.example.typlioserver.auth.utils.AuthUtils;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
-import com.example.typlioserver.user.User;
-import com.example.typlioserver.user.UserMapper;
-import com.example.typlioserver.user.UserRepository;
+import com.example.typlioserver.mailer.MailerService;
+import com.example.typlioserver.user.*;
 import com.example.typlioserver.user.dto.MeDto;
 import com.example.typlioserver.user.dto.UserDto;
 import com.example.typlioserver.user.exception.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final MailerService mailerService;
+    private final UserValidator userValidator;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserUtils userUtils;
 
     public MeDto getMe() {
         UserDetails userDetails = AuthUtils.getLoggedInUser();
@@ -38,18 +41,19 @@ public class UserService {
     }
 
     public void deleteUser(Long userId) {
-        User loggedUser = userRepository
-                .findByUsername(AuthUtils.getLoggedInUser().getUsername())
-                .orElseThrow(UserNotFoundException::new);
-
-        if (!userRepository.existsById(userId)) {
-            throw new UserNotFoundException();
-        }
+        userValidator.checkIfIdUserExists(userId);
+        User loggedUser = userUtils.getLoggedInUser();
 
         if (!Objects.equals(loggedUser.getId(), userId)) {
             throw new InsufficientPermissionsException();
         }
 
         userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public void resetPassword(String email) {
+        userValidator.checkIfEmailUserExists(email);
+        mailerService.sendSimpleMail(email, "Password reset", "Password reset content");
     }
 }

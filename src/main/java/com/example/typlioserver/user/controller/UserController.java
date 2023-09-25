@@ -1,6 +1,7 @@
 package com.example.typlioserver.user.controller;
 
 import com.example.typlioserver.user.dto.MeDto;
+import com.example.typlioserver.user.dto.PasswordResetDto;
 import com.example.typlioserver.user.service.UserService;
 import com.example.typlioserver.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteOne(@PathVariable Long userId) {
         userService.deleteUser(userId);
+    }
+
+    @PostMapping("/password")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void resetPassword(@RequestBody PasswordResetDto passwordResetDto) {
+        userService.resetPassword(passwordResetDto.getEmail());
     }
 }
