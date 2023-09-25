@@ -1,15 +1,12 @@
 package com.example.typlioserver.user.speedtest;
 
 import com.example.typlioserver.common.dto.PagedResponse;
-import com.example.typlioserver.speedtest.SpeedTest;
-import com.example.typlioserver.speedtest.SpeedTestMapper;
-import com.example.typlioserver.speedtest.SpeedTestMode;
-import com.example.typlioserver.speedtest.SpeedTestRepository;
+import com.example.typlioserver.speedtest.*;
 import com.example.typlioserver.speedtest.dto.NewSpeedTestDto;
 import com.example.typlioserver.speedtest.dto.SpeedTestDto;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
 import com.example.typlioserver.user.UserRepository;
-import com.example.typlioserver.user.common.UserNotFoundException;
+import com.example.typlioserver.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +24,7 @@ class UserSpeedTestService {
     private final SpeedTestRepository speedTestRepository;
     private final SpeedTestMapper speedTestMapper;
     private final UserRepository userRepository;
+    private final PagedSpeedTestMapper pagedSpeedTestMapper;
 
     SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
         SpeedTest speedTest = speedTestMapper.map(newSpeedTestDto, userId);
@@ -66,16 +64,6 @@ class UserSpeedTestService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
         Page<SpeedTest> pagedSpeedTests = speedTestRepository.findByUserIdAndModeIn(userId, modes, pageable);
 
-        PagedResponse<SpeedTestDto> pagedSpeedTestsDto = new PagedResponse<>();
-        pagedSpeedTestsDto.setContent(pagedSpeedTests
-                .getContent()
-                .stream()
-                .map(speedTestMapper::map)
-                .toList());
-        pagedSpeedTestsDto.setCurrentPage(pagedSpeedTests.getNumber());
-        pagedSpeedTestsDto.setTotalPages(pagedSpeedTests.getTotalPages());
-        pagedSpeedTestsDto.setTotalItems(pagedSpeedTests.getTotalElements());
-
-        return pagedSpeedTestsDto;
+        return pagedSpeedTestMapper.map(pagedSpeedTests);
     }
 }
