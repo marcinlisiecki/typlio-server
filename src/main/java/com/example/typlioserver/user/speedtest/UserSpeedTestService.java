@@ -24,7 +24,6 @@ class UserSpeedTestService {
     private final SpeedTestRepository speedTestRepository;
     private final SpeedTestMapper speedTestMapper;
     private final UserRepository userRepository;
-    private final PagedSpeedTestMapper pagedSpeedTestMapper;
 
     SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
         SpeedTest speedTest = speedTestMapper.map(newSpeedTestDto, userId);
@@ -64,6 +63,6 @@ class UserSpeedTestService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
         Page<SpeedTest> pagedSpeedTests = speedTestRepository.findByUserIdAndModeIn(userId, modes, pageable);
 
-        return pagedSpeedTestMapper.map(pagedSpeedTests);
+        return speedTestMapper.map(pagedSpeedTests);
     }
 }

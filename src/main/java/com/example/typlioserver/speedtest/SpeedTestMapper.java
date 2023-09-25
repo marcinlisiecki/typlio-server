@@ -1,11 +1,13 @@
 package com.example.typlioserver.speedtest;
 
 import com.example.typlioserver.auth.exception.UserNotAuthenticatedException;
+import com.example.typlioserver.common.dto.PagedResponse;
 import com.example.typlioserver.speedtest.dto.NewSpeedTestDto;
 import com.example.typlioserver.speedtest.dto.SpeedTestDto;
 import com.example.typlioserver.user.User;
 import com.example.typlioserver.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -44,5 +46,20 @@ public class SpeedTestMapper {
                 .wpmHistory(speedTest.getWpmHistory())
                 .createdAt(speedTest.getCreatedAt().toString())
                 .build();
+    }
+
+    public PagedResponse<SpeedTestDto> map(Page<SpeedTest> pagedSpeedTests) {
+        PagedResponse<SpeedTestDto> pagedSpeedTestsDto = new PagedResponse<>();
+
+        pagedSpeedTestsDto.setContent(pagedSpeedTests
+                .getContent()
+                .stream()
+                .map(this::map)
+                .toList());
+        pagedSpeedTestsDto.setCurrentPage(pagedSpeedTests.getNumber());
+        pagedSpeedTestsDto.setTotalPages(pagedSpeedTests.getTotalPages());
+        pagedSpeedTestsDto.setTotalItems(pagedSpeedTests.getTotalElements());
+
+        return pagedSpeedTestsDto;
     }
 }
