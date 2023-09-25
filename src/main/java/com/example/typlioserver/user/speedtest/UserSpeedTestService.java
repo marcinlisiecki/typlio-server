@@ -1,4 +1,4 @@
-package com.example.typlioserver.user.service;
+package com.example.typlioserver.user.speedtest;
 
 import com.example.typlioserver.common.dto.PagedResponse;
 import com.example.typlioserver.speedtest.SpeedTest;
@@ -9,7 +9,7 @@ import com.example.typlioserver.speedtest.dto.NewSpeedTestDto;
 import com.example.typlioserver.speedtest.dto.SpeedTestDto;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
 import com.example.typlioserver.user.UserRepository;
-import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.common.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,18 +22,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserSpeedTestService {
+class UserSpeedTestService {
 
     private final SpeedTestRepository speedTestRepository;
     private final SpeedTestMapper speedTestMapper;
     private final UserRepository userRepository;
 
-    public SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
+    SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
         SpeedTest speedTest = speedTestMapper.map(newSpeedTestDto, userId);
         return speedTestMapper.map(speedTestRepository.save(speedTest));
     }
 
-    public SpeedTestDto findSpeedTest(Long speedTestId, Long userId) {
+    SpeedTestDto findSpeedTest(Long speedTestId, Long userId) {
         userRepository
                 .findById(userId)
                 .orElseThrow(UserNotFoundException::new);
@@ -44,7 +44,7 @@ public class UserSpeedTestService {
                 .orElseThrow(SpeedTestNotFoundException::new);
     }
 
-    public PagedResponse<SpeedTestDto> findPagedUserSpeedTests(
+    PagedResponse<SpeedTestDto> findPagedUserSpeedTests(
             Long userId,
             int page,
             int size,

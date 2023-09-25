@@ -1,6 +1,6 @@
 package com.example.typlioserver.auth;
 
-import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.common.UserNotFoundException;
 import com.example.typlioserver.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

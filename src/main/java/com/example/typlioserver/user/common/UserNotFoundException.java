@@ -1,4 +1,4 @@
-package com.example.typlioserver.user.exception;
+package com.example.typlioserver.user.common;
 
 import com.example.typlioserver.common.constants.ErrorMessages;
 

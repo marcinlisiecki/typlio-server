@@ -4,7 +4,7 @@ import com.example.typlioserver.auth.dto.LoginCredentialsDto;
 import com.example.typlioserver.auth.dto.RegisterCredentialsDto;
 import com.example.typlioserver.auth.exception.EmailAlreadyExistsException;
 import com.example.typlioserver.auth.exception.UserNotAuthenticatedException;
-import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.common.UserNotFoundException;
 import com.example.typlioserver.auth.exception.UsernameAlreadyExistsException;
 import com.example.typlioserver.auth.jwt.JwtService;
 import com.example.typlioserver.auth.jwt.JwtTokenDto;
@@ -93,7 +93,7 @@ public class AuthService {
         }
 
         String refreshToken = authHeader.substring(7);
-        String username = "";
+        String username;
 
         try {
             username = jwtService.extractUsername(refreshToken);

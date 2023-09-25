@@ -1,4 +1,4 @@
-package com.example.typlioserver.user.dto;
+package com.example.typlioserver.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+class UserDto {
 
     private Long id;
     private String username;

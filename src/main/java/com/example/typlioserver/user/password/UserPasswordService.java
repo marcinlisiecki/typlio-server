@@ -1,9 +1,7 @@
-package com.example.typlioserver.user.service;
+package com.example.typlioserver.user.password;
 
 import com.example.typlioserver.mailer.MailerService;
-import com.example.typlioserver.user.PasswordResetToken;
-import com.example.typlioserver.user.PasswordResetTokenRepository;
-import com.example.typlioserver.user.UserValidator;
+import com.example.typlioserver.user.common.UserValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserPasswordService {
+class UserPasswordService {
 
     private final MailerService mailerService;
     private final UserValidator userValidator;

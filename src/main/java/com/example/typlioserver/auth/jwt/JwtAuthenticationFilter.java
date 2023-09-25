@@ -1,6 +1,6 @@
 package com.example.typlioserver.auth.jwt;
 
-import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.common.UserNotFoundException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -8,6 +8,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,8 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -41,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String accessToken = authHeader.substring(7);
-        String username = "";
+        String username;
 
         try {
             username = jwtService.extractUsername(accessToken);

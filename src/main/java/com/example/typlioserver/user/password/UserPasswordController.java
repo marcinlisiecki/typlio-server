@@ -1,7 +1,5 @@
-package com.example.typlioserver.user.controller;
+package com.example.typlioserver.user.password;
 
-import com.example.typlioserver.user.dto.PasswordResetDto;
-import com.example.typlioserver.user.service.UserPasswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ public class UserPasswordController {
 
     @PostMapping("/password")
     @ResponseStatus(HttpStatus.CREATED)
-    public void resetPassword(@RequestBody PasswordResetDto passwordResetDto) {
+    void resetPassword(@RequestBody PasswordResetDto passwordResetDto) {
         userPasswordService.resetPassword(passwordResetDto.getEmail());
     }
 }
