@@ -84,6 +84,6 @@ class UserPasswordService {
     }
 
     private String generatePasswordResetLink(PasswordResetToken token) {
-        return clientUrl + "/reset-password/" + token.getToken();
+        return clientUrl + "/auth/forgot-password/" + token.getToken();
     }
 }
