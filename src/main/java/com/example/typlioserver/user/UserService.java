@@ -1,10 +1,15 @@
 package com.example.typlioserver.user;
 
+import com.example.typlioserver.auth.exception.UsernameAlreadyExistsException;
+import com.example.typlioserver.auth.jwt.JwtService;
 import com.example.typlioserver.auth.utils.AuthUtils;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
+import com.example.typlioserver.user.dto.UpdateUsernameDto;
+import com.example.typlioserver.user.dto.UpdateUsernameResponseDto;
 import com.example.typlioserver.user.exception.UserNotFoundException;
 import com.example.typlioserver.user.dto.MeDto;
 import com.example.typlioserver.user.dto.UserDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,7 @@ class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final UserUtils userUtils;
+    private final JwtService jwtService;
 
     MeDto getMe() {
         UserDetails userDetails = AuthUtils.getLoggedInUserDetails();
@@ -45,5 +51,28 @@ class UserService {
         }
 
         userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public UpdateUsernameResponseDto updateUsername(Long userId, UpdateUsernameDto updateUsernameDto) {
+        userValidator.checkIfIdUserExists(userId);
+
+        User loggedUser = userUtils.getLoggedInUser();
+        if (!Objects.equals(userId, loggedUser.getId())) {
+            throw new InsufficientPermissionsException();
+        }
+
+        if (userRepository.existsByUsername(updateUsernameDto.getUsername())) {
+            throw new UsernameAlreadyExistsException();
+        }
+
+        loggedUser.setUsername(updateUsernameDto.getUsername());
+        String refreshToken = jwtService.generateRefreshToken(loggedUser);
+
+        return UpdateUsernameResponseDto
+                .builder()
+                .refreshToken(refreshToken)
+                .user(userMapper.userToMeDto(loggedUser))
+                .build();
     }
 }
