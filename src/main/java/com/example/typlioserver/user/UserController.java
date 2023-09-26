@@ -34,7 +34,7 @@ class UserController {
         userService.deleteUser(userId);
     }
 
-    @PatchMapping("/{userId}/username")
+    @PutMapping("/{userId}/username")
     @ResponseStatus(HttpStatus.OK)
     UpdateUsernameResponseDto updateUsername(
             @PathVariable Long userId,

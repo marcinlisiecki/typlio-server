@@ -1,5 +1,6 @@
 package com.example.typlioserver.user.password;
 
+import com.example.typlioserver.user.password.dto.ChangePasswordDto;
 import com.example.typlioserver.user.password.dto.PasswordResetDto;
 import com.example.typlioserver.user.password.dto.RequestPasswordResetDto;
 import jakarta.validation.Valid;
@@ -24,5 +25,11 @@ public class UserPasswordController {
     @ResponseStatus(HttpStatus.OK)
     void resetPassword(@RequestBody @Valid PasswordResetDto resetPasswordDto) {
         userPasswordService.resetPassword(resetPasswordDto);
+    }
+
+    @PutMapping("/{userId}/password")
+    @ResponseStatus(HttpStatus.OK)
+    void changePassword(@PathVariable Long userId, @RequestBody @Valid ChangePasswordDto passwordDto) {
+        userPasswordService.changePassword(userId, passwordDto);
     }
 }

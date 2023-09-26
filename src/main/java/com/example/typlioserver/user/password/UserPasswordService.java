@@ -3,9 +3,12 @@ package com.example.typlioserver.user.password;
 import com.example.typlioserver.mailer.MailerService;
 import com.example.typlioserver.user.User;
 import com.example.typlioserver.user.UserRepository;
+import com.example.typlioserver.user.UserUtils;
 import com.example.typlioserver.user.exception.UserNotFoundException;
 import com.example.typlioserver.user.UserValidator;
+import com.example.typlioserver.user.password.dto.ChangePasswordDto;
 import com.example.typlioserver.user.password.dto.PasswordResetDto;
+import com.example.typlioserver.user.password.exception.IncorrectPasswordException;
 import com.example.typlioserver.user.password.exception.PasswordResetTokenExpiredException;
 import com.example.typlioserver.user.password.exception.PasswordResetTokenNotFoundException;
 import jakarta.transaction.Transactional;
@@ -24,6 +27,7 @@ class UserPasswordService {
 
     private final MailerService mailerService;
     private final UserValidator userValidator;
+    private final UserUtils userUtils;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
@@ -59,6 +63,20 @@ class UserPasswordService {
 
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getNewPassword()));
         resetToken.setIsActive(false);
+    }
+
+    @Transactional
+    public void changePassword(Long userId, ChangePasswordDto passwordDto) {
+        userValidator.checkIfIdUserExists(userId);
+        userValidator.checkIfSameUser(userId);
+
+        User user = userUtils.getLoggedInUser();
+        if (!passwordEncoder.matches(passwordDto.getOldPassword(), user.getPassword())) {
+            throw new IncorrectPasswordException();
+        }
+
+        String newEncodedPassword = passwordEncoder.encode(passwordDto.getNewPassword());
+        user.setPassword(newEncodedPassword);
     }
 
     private void validateTokenDate(PasswordResetToken resetToken) {

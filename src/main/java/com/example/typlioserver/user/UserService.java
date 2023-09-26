@@ -56,11 +56,9 @@ class UserService {
     @Transactional
     public UpdateUsernameResponseDto updateUsername(Long userId, UpdateUsernameDto updateUsernameDto) {
         userValidator.checkIfIdUserExists(userId);
+        userValidator.checkIfSameUser(userId);
 
         User loggedUser = userUtils.getLoggedInUser();
-        if (!Objects.equals(userId, loggedUser.getId())) {
-            throw new InsufficientPermissionsException();
-        }
 
         if (userRepository.existsByUsername(updateUsernameDto.getUsername())) {
             throw new UsernameAlreadyExistsException();

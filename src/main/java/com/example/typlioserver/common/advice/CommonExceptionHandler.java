@@ -4,6 +4,7 @@ import com.example.typlioserver.common.dto.ErrorMessageDto;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
 import com.example.typlioserver.user.exception.UserNotFoundException;
+import com.example.typlioserver.user.password.exception.IncorrectPasswordException;
 import com.example.typlioserver.user.password.exception.PasswordResetTokenExpiredException;
 import com.example.typlioserver.user.password.exception.PasswordResetTokenNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,8 @@ public class CommonExceptionHandler {
 
     @ExceptionHandler({
             PasswordResetTokenExpiredException.class,
-            PasswordResetTokenNotFoundException.class
+            PasswordResetTokenNotFoundException.class,
+            IncorrectPasswordException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessageDto handleBadRequestException(Exception e) {
