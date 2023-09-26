@@ -3,7 +3,7 @@ package com.example.typlioserver.user.password.dto;
 import lombok.Data;
 
 @Data
-public class RequestResetPasswordDto {
+public class RequestPasswordResetDto {
 
     private String email;
 }

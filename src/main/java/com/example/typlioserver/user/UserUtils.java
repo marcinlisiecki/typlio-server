@@ -13,7 +13,7 @@ public class UserUtils {
 
     public User getLoggedInUser() {
         return userRepository
-                .findByUsername(AuthUtils.getLoggedInUser().getUsername())
+                .findByUsername(AuthUtils.getLoggedInUserDetails().getUsername())
                 .orElseThrow(UserNotFoundException::new);
     }
 }

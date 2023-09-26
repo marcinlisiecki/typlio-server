@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthUtils {
 
-    public static UserDetails getLoggedInUser() {
+    public static UserDetails getLoggedInUserDetails() {
         return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

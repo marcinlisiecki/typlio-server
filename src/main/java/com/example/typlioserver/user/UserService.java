@@ -21,7 +21,7 @@ class UserService {
     private final UserUtils userUtils;
 
     MeDto getMe() {
-        UserDetails userDetails = AuthUtils.getLoggedInUser();
+        UserDetails userDetails = AuthUtils.getLoggedInUserDetails();
 
         return userRepository
                 .findByUsername(userDetails.getUsername())

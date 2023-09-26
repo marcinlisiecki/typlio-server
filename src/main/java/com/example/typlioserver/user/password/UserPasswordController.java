@@ -1,7 +1,7 @@
 package com.example.typlioserver.user.password;
 
 import com.example.typlioserver.user.password.dto.PasswordResetDto;
-import com.example.typlioserver.user.password.dto.RequestResetPasswordDto;
+import com.example.typlioserver.user.password.dto.RequestPasswordResetDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class UserPasswordController {
 
     @PostMapping("/password")
     @ResponseStatus(HttpStatus.CREATED)
-    void sendResetPasswordLink(@RequestBody RequestResetPasswordDto passwordResetDto) {
+    void sendResetPasswordLink(@RequestBody RequestPasswordResetDto passwordResetDto) {
         userPasswordService.sendResetPasswordLink(passwordResetDto.getEmail());
     }
 
