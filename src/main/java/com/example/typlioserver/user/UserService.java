@@ -3,7 +3,6 @@ package com.example.typlioserver.user;
 import com.example.typlioserver.auth.exception.UsernameAlreadyExistsException;
 import com.example.typlioserver.auth.jwt.JwtService;
 import com.example.typlioserver.auth.utils.AuthUtils;
-import com.example.typlioserver.common.exception.InsufficientPermissionsException;
 import com.example.typlioserver.user.dto.UpdateUsernameDto;
 import com.example.typlioserver.user.dto.UpdateUsernameResponseDto;
 import com.example.typlioserver.user.exception.UserNotFoundException;
@@ -13,8 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -44,12 +41,7 @@ class UserService {
 
     void deleteUser(Long userId) {
         userValidator.checkIfIdUserExists(userId);
-        User loggedUser = userUtils.getLoggedInUser();
-
-        if (!Objects.equals(loggedUser.getId(), userId)) {
-            throw new InsufficientPermissionsException();
-        }
-
+        userValidator.checkIfSameUser(userId);
         userRepository.deleteById(userId);
     }
 
