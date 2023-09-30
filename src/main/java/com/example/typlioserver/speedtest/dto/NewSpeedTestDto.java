@@ -18,7 +18,7 @@ public class NewSpeedTestDto {
     private SpeedTestMode mode;
     private Integer time;
     private Integer cpm;
-    private Integer mistakes;
+    private Integer keyErrorsCount;
     private Float accuracy;
     private List<Integer> wpmHistory;
     private List<Histogram> histogram;

@@ -19,7 +19,7 @@ public class SpeedTestDto {
     private SpeedTestMode mode;
     private Integer time;
     private Integer cpm;
-    private Integer mistakes;
+    private Integer keyErrorsCount;
     private Float accuracy;
     private Long userId;
     private List<Integer> wpmHistory;

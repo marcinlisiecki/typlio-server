@@ -37,7 +37,7 @@ public class SpeedTest {
     private Integer cpm;
 
     @NotNull
-    private Integer mistakes;
+    private Integer keyErrorsCount;
 
     @NotNull
     private Float accuracy;
