@@ -1,5 +1,6 @@
 package com.example.typlioserver.speedtest.dto;
 
+import com.example.typlioserver.speedtest.Histogram;
 import com.example.typlioserver.speedtest.SpeedTestMode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +23,6 @@ public class SpeedTestDto {
     private Float accuracy;
     private Long userId;
     private List<Integer> wpmHistory;
+    private List<Histogram> histogram;
     private String createdAt;
 }

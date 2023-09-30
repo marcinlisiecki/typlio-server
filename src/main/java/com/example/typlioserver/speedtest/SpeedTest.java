@@ -43,9 +43,12 @@ public class SpeedTest {
     private Float accuracy;
 
     @NotNull
-    @Column
+    @Column(length = 1000)
     @Convert(converter = IntArrayToStringConverter.class)
     private List<Integer> wpmHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Histogram> histogram = new ArrayList<>();
 
     @ManyToOne
     private User user;

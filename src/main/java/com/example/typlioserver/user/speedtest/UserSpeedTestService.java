@@ -7,6 +7,7 @@ import com.example.typlioserver.speedtest.dto.SpeedTestDto;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
 import com.example.typlioserver.user.UserRepository;
 import com.example.typlioserver.user.exception.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,8 @@ class UserSpeedTestService {
     private final SpeedTestMapper speedTestMapper;
     private final UserRepository userRepository;
 
-    SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
+    @Transactional
+    public SpeedTestDto createSpeedTest(NewSpeedTestDto newSpeedTestDto, Long userId) {
         SpeedTest speedTest = speedTestMapper.map(newSpeedTestDto, userId);
         return speedTestMapper.map(speedTestRepository.save(speedTest));
     }

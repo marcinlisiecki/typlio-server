@@ -29,6 +29,7 @@ public class SpeedTestMapper {
                 .accuracy(newSpeedTestDto.getAccuracy())
                 .mistakes(newSpeedTestDto.getMistakes())
                 .wpmHistory(newSpeedTestDto.getWpmHistory())
+                .histogram(newSpeedTestDto.getHistogram())
                 .user(user)
                 .build();
     }
@@ -44,6 +45,7 @@ public class SpeedTestMapper {
                 .time(speedTest.getTime())
                 .userId(speedTest.getUser().getId())
                 .wpmHistory(speedTest.getWpmHistory())
+                .histogram(speedTest.getHistogram())
                 .createdAt(speedTest.getCreatedAt().toString())
                 .build();
     }
