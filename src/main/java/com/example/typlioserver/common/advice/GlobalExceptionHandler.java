@@ -3,6 +3,7 @@ package com.example.typlioserver.common.advice;
 import com.example.typlioserver.common.dto.ErrorMessageDto;
 import com.example.typlioserver.common.exception.InsufficientPermissionsException;
 import com.example.typlioserver.speedtest.exception.SpeedTestNotFoundException;
+import com.example.typlioserver.suggestion.exception.SuggestionNotFoundException;
 import com.example.typlioserver.user.exception.UserNotFoundException;
 import com.example.typlioserver.user.password.exception.IncorrectPasswordException;
 import com.example.typlioserver.user.password.exception.PasswordResetTokenExpiredException;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CommonExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler({
             UserNotFoundException.class,
-            SpeedTestNotFoundException.class
+            SpeedTestNotFoundException.class,
+            SuggestionNotFoundException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessageDto handleResourceNotFoundException(Exception e) {

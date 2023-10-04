@@ -18,4 +18,6 @@ public class ErrorMessages {
     public static String PASSWORD_RESET_TOKEN_EXPIRED = "Token expired";
 
     public static String INCORRECT_PASSWORD = "Incorrect password";
+
+    public static String SUGGESTION_NOT_FOUND = "Suggestion not found";
 }
