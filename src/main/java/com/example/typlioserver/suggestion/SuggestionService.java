@@ -1,5 +1,6 @@
 package com.example.typlioserver.suggestion;
 
+import com.example.typlioserver.common.security.IsAdmin;
 import com.example.typlioserver.suggestion.dto.NewSuggestionDto;
 import com.example.typlioserver.suggestion.dto.SuggestionDto;
 import com.example.typlioserver.suggestion.exception.SuggestionNotFoundException;
@@ -22,6 +23,7 @@ public class SuggestionService {
         return suggestionMapper.map(suggestion);
     }
 
+    @IsAdmin
     SuggestionDto findSuggestion(Long id) {
         return suggestionRepository
                 .findById(id)
@@ -29,6 +31,7 @@ public class SuggestionService {
                 .orElseThrow(SuggestionNotFoundException::new);
     }
 
+    @IsAdmin
     List<SuggestionDto> findAllSuggestions() {
         return StreamUtils
                 .createStreamFromIterator(suggestionRepository.findAll().iterator())
@@ -36,6 +39,7 @@ public class SuggestionService {
                 .toList();
     }
 
+    @IsAdmin
     void deleteSuggestion(Long id) {
         suggestionValidator.checkIfSuggestionExists(id);
         suggestionRepository.deleteById(id);
