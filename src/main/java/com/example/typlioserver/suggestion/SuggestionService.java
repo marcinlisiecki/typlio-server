@@ -15,6 +15,7 @@ public class SuggestionService {
 
     private final SuggestionRepository suggestionRepository;
     private final SuggestionMapper suggestionMapper;
+    private final SuggestionValidator suggestionValidator;
 
     SuggestionDto newSuggestion(NewSuggestionDto newSuggestionDto) {
         Suggestion suggestion = suggestionRepository.save(suggestionMapper.map(newSuggestionDto));
@@ -33,5 +34,10 @@ public class SuggestionService {
                 .createStreamFromIterator(suggestionRepository.findAll().iterator())
                 .map(suggestionMapper::map)
                 .toList();
+    }
+
+    void deleteSuggestion(Long id) {
+        suggestionValidator.checkIfSuggestionExists(id);
+        suggestionRepository.deleteById(id);
     }
 }

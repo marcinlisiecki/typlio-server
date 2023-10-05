@@ -34,4 +34,10 @@ public class SuggestionController {
     SuggestionDto findSuggestion(@PathVariable Long suggestionId) {
         return suggestionService.findSuggestion(suggestionId);
     }
+
+    @DeleteMapping("/{suggestionId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteSuggestion(@PathVariable Long suggestionId) {
+        suggestionService.deleteSuggestion(suggestionId);
+    }
 }
