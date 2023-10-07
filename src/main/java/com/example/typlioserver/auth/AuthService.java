@@ -128,6 +128,7 @@ public class AuthService {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("id", user.getId());
         extraClaims.put("email", user.getEmail());
+        extraClaims.put("roles", user.getAuthorities().toString());
 
         return extraClaims;
     }
